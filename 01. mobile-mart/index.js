@@ -1,5 +1,6 @@
 const http = require('http');
 const fs = require('fs');
+const replaceTemplate = require('./utils/replaceTemplate')
 
 const dataString = fs.readFileSync('data.json', 'utf-8');
 const data = JSON.parse(dataString);
@@ -12,18 +13,9 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {
       'Content-type': 'text/html',
     })
-    const cards = data.map(mobile => {
-      let card = cardTemplate;
-      card = card.replace('%image%', mobile.image);
-      card = card.replace('%name%', mobile.name);
-      card = card.replace('%ram%', mobile.ram);
-      card = card.replace('%rom%', mobile.rom);
-      card = card.replace('%id%', mobile.id);
-      card = card.replace('%price%', mobile.price);
-      return card
-    })
-    const template = overView.replace('%product-cards%', cards.join(''))
-    res.end(template)
+    const cards = data.map(mobile => replaceTemplate(cardTemplate, mobile))
+    const outPut = overView.replace(/%product-cards%/g, cards.join(''))
+    res.end(outPut)
   }else if(pathName === '/mobile'){
     res.end('Hello from laptop page!');
   } else if(pathName === '/api'){

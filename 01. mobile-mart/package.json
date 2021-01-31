@@ -1,0 +1,14 @@
+{
+  "name": "mobile-mart",
+  "version": "1.0.0",
+  "description": "Mobile specifications and overview",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "author": "Sayeed Afridi",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
